@@ -8,8 +8,9 @@
   "scripts": {
     "test": "jest --detectOpenHandles --forceExit",
     "lint": "eslint . --ext .ts",
-    "build": "tsc --project ./",
-    "start": "nodemon"
+    "dev": "nodemon",
+    "build": "tsc",
+    "start": "node ./build/app.js"
   },
   "dependencies": {
     "body-parser": "^1.20.2",
