@@ -13,7 +13,6 @@ import ErrorModal from '../components/ErrorModal'
 // ------------------------------------------------------------
 
 function Home() {
-    const [sizeValue, setSizeValue] = useState(IMAGE_SIZES[0].value)
 
     const [IsGenerating, setIsGenerating] = useState(false)
 
@@ -30,8 +29,7 @@ function Home() {
         try {
             setIsGenerating(true)
             const res = await imageService.generateImage({
-                prompt,
-                size: sizeValue,
+                prompt
             })
 
             setIsGenerating(false)
@@ -55,15 +53,10 @@ function Home() {
 
     return (
         <>
-            <Header />
             <div className="container mx-auto max-w-screen-xl px-2">
                 <h1 className="mt-16 pb-7 sm:mt-20 animate-text text-center bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent text-5xl sm:7xl font-black">
-                    Text to image with AI Image Generator
+                ❤️ Moncsinak szeretettel! ❤️
                 </h1>
-                <p className="text-center">
-                    Unlock your imagination with our platform and witness the
-                    breathtaking power of computer-generated imagery!
-                </p>
                 <div className="max-w-screen-xl mt-10 mx-auto">
                     <div className="mb-6 flex space-y-5 flex-col sm:flex-row sm:items-baseline sm:space-x-5">
                         <div className="flex w-full row space-x-2 items-center">
@@ -71,15 +64,9 @@ function Home() {
                                 type="text"
                                 value={prompt}
                                 placeholder="Describe What you want the AI draw"
+                                // placeholder="Mit generáljak?"
                                 onChange={(e) => setPrompt(e.target.value)}
                                 className="block w-full p-4 text-gray-700 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-purple-500"
-                            />
-
-                            <SizeSelector
-                                value={sizeValue}
-                                onValueChange={(value) => {
-                                    setSizeValue(value)
-                                }}
                             />
                         </div>
                         <button
@@ -92,6 +79,7 @@ function Home() {
                             )}
                         >
                             {IsGenerating ? 'Generating...' : 'Generate'}
+                            {/* {IsGenerating ? 'Pillanat...' : 'Generálj!'} */}
                         </button>
                     </div>
                     <div className="pl-1">

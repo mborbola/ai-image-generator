@@ -1,6 +1,6 @@
 import axios from '../utils/axios'
 
-const generateImage = (data: { prompt: string; size: string }) =>
+const generateImage = (data: { prompt: string }) =>
     axios.post('/image/generate', data).then(
         (response) => response,
         (error) => error

@@ -27,28 +27,10 @@ export const generateImage = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  const { prompt, size } = req.body
+  const { prompt } = req.body
 
   if (!prompt || prompt === '') {
     ResponseHandler.badRequest(res, '', 'Prompt is required.')
-  }
-
-  let imageSize
-
-  switch (size) {
-    case 'Small':
-      imageSize = "256x256"
-      break
-    case 'Medium':
-      imageSize = "512x512"
-      break
-    case 'Large':
-      imageSize = "1024x1024"
-      break
-
-    default:
-      imageSize = "256x256"
-      break
   }
 
   try {
@@ -56,7 +38,7 @@ export const generateImage = async (
       model: "dall-e-3",
       prompt,
       n: 1,
-      size: imageSize,
+      size: "1024x1024",
     })
 
     const image = aiResponse.data[0].url
