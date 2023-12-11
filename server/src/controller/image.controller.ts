@@ -2,7 +2,6 @@ import { Request, Response } from 'express'
 import { cloudinary, openai } from '../config/config'
 import { createImage, findAllImages } from '../service/image.service'
 import ResponseHandler from '../utils/responseHandler'
-import { CreateImageRequestSizeEnum } from 'openai'
 
 export const fetchAllImages = async (
   _req: Request,
@@ -38,28 +37,29 @@ export const generateImage = async (
 
   switch (size) {
     case 'Small':
-      imageSize = CreateImageRequestSizeEnum._256x256
+      imageSize = "256x256"
       break
     case 'Medium':
-      imageSize = CreateImageRequestSizeEnum._512x512
+      imageSize = "512x512"
       break
     case 'Large':
-      imageSize = CreateImageRequestSizeEnum._1024x1024
+      imageSize = "1024x1024"
       break
 
     default:
-      imageSize = CreateImageRequestSizeEnum._256x256
+      imageSize = "256x256"
       break
   }
 
   try {
-    const aiResponse = await openai.createImage({
+    const aiResponse = await openai.images.generate({
+      model: "dall-e-3",
       prompt,
       n: 1,
       size: imageSize,
     })
 
-    const image = aiResponse.data.data[0].url
+    const image = aiResponse.data[0].url
 
     if (!image) {
       ResponseHandler.serverError(

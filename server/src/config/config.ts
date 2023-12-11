@@ -2,7 +2,7 @@ import EnvConfig from '../types/EnvConfig'
 import Joi from 'joi'
 import { config as cfg } from 'dotenv'
 import path from 'path'
-import { Configuration, OpenAIApi } from 'openai';
+import OpenAI from 'openai';
 import { v2 as cloudinarySetup } from 'cloudinary';
 
 
@@ -49,13 +49,9 @@ export const validateEnv = (): void => {
 }
 
 // Open AI Setup
-
-const configuration = new Configuration({
-    apiKey: config.openAiKey,
+export const openai = new OpenAI({
+  apiKey: config.openAiKey, // defaults to process.env["OPENAI_API_KEY"]
 });
-
-export const openai = new OpenAIApi(configuration);
-
 // Cloudinary Setup
 
 cloudinarySetup.config({
